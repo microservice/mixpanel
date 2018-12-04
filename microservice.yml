@@ -1,0 +1,58 @@
+omg: 1
+lifecycle:
+  startup:
+    command: ["python", "/app/app.py"]
+actions:
+  track:
+    help: Record an event
+    http:
+      path: /track
+      method: post
+      port: 8000
+      contentType: application/json
+    arguments:
+      event:
+        type: string
+        in: requestBody
+        required: true
+      properties:
+        type: map
+        in: requestBody
+      distinct_id:
+        type: string
+        required: true
+        in: requestBody
+    output:
+      contentType: application/json
+      type: object
+      properties:
+        success:
+          type: true
+  people_set:
+    help: Set properties of a people record
+    http:
+      path: /people_set
+      method: post
+      port: 8000
+      contentType: application/json
+    arguments:
+      properties:
+        type: map
+        required: true
+        in: requestBody
+      distinct_id:
+        type: string
+        required: true
+        in: requestBody
+    output:
+      contentType: application/json
+      type: object
+      properties:
+        success:
+          type: true
+
+environment:
+  PROJECT_TOKEN:
+    help: Your Mixpanel project token
+    type: string
+    required: true
