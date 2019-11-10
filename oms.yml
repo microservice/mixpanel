@@ -1,7 +1,11 @@
-omg: 1
+oms: 1
+info:
+  version: 0.1.0
+  title: Mixpanel
+  description: Allows interaction with MixPanel
 lifecycle:
   startup:
-    command: ["python", "/app/app.py"]
+    command: ['python', '/app/app.py']
 actions:
   track:
     help: Record an event
@@ -27,7 +31,7 @@ actions:
       type: object
       properties:
         success:
-          type: true
+          type: boolean
   people_set:
     help: Set properties of a people record
     http:
@@ -49,7 +53,7 @@ actions:
       type: object
       properties:
         success:
-          type: true
+          type: boolean
 
 environment:
   PROJECT_TOKEN:
