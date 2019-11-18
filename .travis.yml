@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+- '12'
+services:
+- docker
+before_install:
+- npm i @microservices/cli
+script:
+- npx oms build
+- |
+  output="$(npx oms run --silent track \
+  -a event='remote oms' \
+  -a distinct_id='anything-test-id' \
+  -e PROJECT_TOKEN=$PROJECT_TOKEN | jq -c .)"
+  if [ "$output" != '{"success":true}' ] ; then echo "$output"; exit 1; fi
+env:
+  global:
+    secure: W2/q5M+Xf6td/3VA42TzgBsOnRL3g754BD+QnceW5tkrpzbmnrGMNWzWhYnqvCHHtH76TqJXnk9nWZWZOtcg39fl73+qQm8tGRNINPaVTjAE8DdwXaru4stE1Fp3L116L1HkunZOQQRO07S1kgvwfJIgq8U6bdbgc2raAU5Sjp+GrefdfIPYmQDDJW0TLKTLN/vqx1/yAm7BfOUEPc5EsM5rLdydGdSCzI4vryuEUXUvS8B/oQJwb6XkkW5ctQ29sV5OCu6C2JGilF5xgySeQHSoGAc+iykf8BomMUzaqYELGn1J25udJRcW2ohdFgrHvtjfjjF/7KXPEGayWPAKXj7cUtR28CzU4bs1feaR4TVmf8kOAlgliZSptbfz5qhqcd/BJuvNMoXqsbBgMRgs49MlGfmTGNb8bo9Yc2GPd5xoFqUSbZs/YI3jc0i0ZmB18F3/fVgi2RElYiZoEM/tfQeg++kldzC1L7SM/lxQeZY4PbCjrsV3ZRA/9158H06y1oLzaXCNsogLEZy0SkyJwo8WEwDkIc3HkI9QDELWkhwR2aHBhsP0c3WBaAR3ccVNbGZDLdPTDXQDHlitDK+3sZLuVanwmjAmM/F7DiuNq6W1UTIqlkDz49xiNRBs5DIo0uS0ODPN5LFjSOZ/uOM1V9YyaM1lX6viZbP49ngjgY0=
