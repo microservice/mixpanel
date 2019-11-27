@@ -3,9 +3,15 @@ info:
   version: 0.1.0
   title: Mixpanel
   description: Allows interaction with MixPanel
+  contact:
+    name: Open Microservices
+    url: 'https://openmicroservices.org'
+    email: core@openmicroservices.org
 lifecycle:
   startup:
-    command: ['python', '/app/app.py']
+    command:
+      - python
+      - /app/app.py
 actions:
   track:
     help: Record an event
@@ -54,7 +60,6 @@ actions:
       properties:
         success:
           type: boolean
-
 environment:
   PROJECT_TOKEN:
     help: Your Mixpanel project token
